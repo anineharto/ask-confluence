@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "ask-confluence"
+version = "0.1.0"
+description = ""
+authors = ["Anine Harto <anine.harto@accenture.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+atlassian-python-api = "^3.19.0"
+PyYAML = "^6.0"
+openai = "^0.14.0"
+jsonlines = "^3.0.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+rope = "^0.22.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

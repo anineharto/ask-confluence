@@ -1,0 +1,5 @@
+examples:
+  - ["What stands AH for?", "AH stands for Anine Harto"]
+  - ["Who is the leader of Attract Norway?", "Anine Harto is the leader of Attract Norway"]
+  - ["How old is Anine?", "She is 27 years old"]
+examples_context: "Anine Harto (AH) is 27 years old and the leader of Attract Norway."
