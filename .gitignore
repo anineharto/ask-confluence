@@ -1,3 +1,4 @@
 */.secrets.yml
 data/**
 .vscode
+__pychache__/
