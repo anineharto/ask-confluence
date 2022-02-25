@@ -4,23 +4,45 @@ import openai
 from ask_confluence.config import Config
 import data.interim as interim_data_path
 
-class ModelTrainer:
-    # ModelTrainer takes all confluence pages located in /data directory
-    # and feeds them into the openai model.
+class ModelPredictor:
+    """ModelPredictor class definition."""
 
     def __init__(self):
+        """ModelPredictor init module."""
         self.__config = Config()
         self.interim_data_file_path = Path(interim_data_path.__file__).parent / "confluence_pages.jsonl"
     
     def _upload_file(self):
+        """Upload file to OpenAI model.
+
+        Returns:
+            str: ID for uploaded file.
+        """
         file_id = openai.File.create(file=open(self.interim_data_file_path), purpose="answers").get("id")
         time.sleep(5) # Issue with OpenAI returning file id before the processing is complete
         return file_id
     
     def _delete_file(self, file_id):
+        """Delete file from OpenAI model.
+
+        Args:
+            file_id (str): ID of uploaded file to delete.
+        """
         openai.File.delete(file_id)
     
     def get_answer(self, question):
+        """Get answer to question using Open AI's search model.
+
+        First, uploads file to be used among training data, retrieves
+        answer to the given question, and finally deletes the file uploaded
+        as training data (to limit the number of files uploaded).
+
+        Args:
+            question (str): Question.
+
+        Returns:
+            list(str): List of answers.
+        """
         openai.api_key = self.__config.parameters["openai_api_key"]
         file_id = self._upload_file()
         answer = openai.Answer.create(
