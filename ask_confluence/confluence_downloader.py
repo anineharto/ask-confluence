@@ -47,8 +47,8 @@ class ConfluenceDownloader:
             str: All content in given Confluence page ID.
         """
         content = self.confluence.get_page_by_id(page_id=page_id, expand='body.storage').get('body').get('storage').get('value')
-        content_without_html_symbols = re.sub('<[^<]+?>', ' ', content)
-        return content_without_html_symbols
+        content_without_symbols = re.sub('<[^<]+?>', ' ', content)
+        return content_without_symbols
     
     def download_content_to_raw(self):
         """Download content from all pages in Confluence space given from config to data/raw."""

@@ -19,7 +19,7 @@ class ModelPredictor:
             str: ID for uploaded file.
         """
         file_id = openai.File.create(file=open(self.interim_data_file_path), purpose="answers").get("id")
-        time.sleep(5) # Issue with OpenAI returning file id before the processing is complete
+        time.sleep(7) # Issue with OpenAI returning file id before the processing is complete
         return file_id
     
     def _delete_file(self, file_id):
