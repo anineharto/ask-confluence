@@ -27,6 +27,7 @@ Now, the API should be available with Swagger in http://127.0.0.1:8000/docs.
 ## Front-end
 To run a simple front-end application that is connected to the `/askConfluence/` API, run
 ```
+cd frontend_app
 npm install
 npm run dev
 ```
