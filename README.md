@@ -5,6 +5,7 @@ h API, and a front-end connected to this API.
 ## Prerequisites
 1. Clone this repository
 2. Install `Python >3.8`
+3. Install [Node.js](https://nodejs.org/en/)
 3. Install [poetry](https://python-poetry.org/)
 4. Run ``poetry shell``
 5. Run ``poetry install``
