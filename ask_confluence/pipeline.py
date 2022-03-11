@@ -14,5 +14,5 @@ def predict_pipeline():
     print(answer)
 
 if __name__ == "__main__":
-    #data_pipeline()
+    data_pipeline()
     predict_pipeline()
