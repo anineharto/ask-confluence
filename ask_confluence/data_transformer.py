@@ -12,6 +12,8 @@ class DataTransformer:
         """DataTransformer init module."""
         self.raw_data_path = Path(raw_data_path.__file__).parent
         self.interim_data_file_path = Path(interim_data_path.__file__).parent / "confluence_pages.jsonl"
+        if self.interim_data_file_path.is_file():
+            self.interim_data_file_path.unlink()
 
     def json_merge_to_jsonl(self):
         """Merge all json files in data/raw to one jsonline file in data/interim."""

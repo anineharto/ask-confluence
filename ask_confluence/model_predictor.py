@@ -3,6 +3,7 @@ import time
 import openai
 from ask_confluence.config import Config
 import data.interim as interim_data_path
+from ask_confluence.exceptions import AnswerNotFoundError
 
 class ModelPredictor:
     """ModelPredictor class definition."""
@@ -45,14 +46,18 @@ class ModelPredictor:
         """
         openai.api_key = self.__config.parameters["openai_api_key"]
         file_id = self._upload_file()
-        answer = openai.Answer.create(
-            search_model="ada",
-            model="curie",
-            question=question,
-            file=file_id,
-            examples_context=self.__config.parameters["examples_context"],
-            examples=self.__config.parameters["examples"],
-            max_tokens=5,
-        ).get("answers")
+        try:
+            answer = openai.Answer.create(
+                search_model="ada",
+                model="curie",
+                question=question,
+                file=file_id,
+                examples_context=self.__config.parameters["examples_context"],
+                examples=self.__config.parameters["examples"],
+                max_tokens=5,
+            ).get("answers")
+        except openai.error.InvalidRequestError as error:
+            raise AnswerNotFoundError("The answer could not be found among the uploaded documents.")
+        
         self._delete_file(file_id=file_id)
         return answer

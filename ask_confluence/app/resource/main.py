@@ -3,6 +3,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from ask_confluence.app.service.answer_service import get_answer_from_confluence
+from ask_confluence.exceptions import AnswerNotFoundError
 
 app = FastAPI()
 
@@ -28,8 +29,8 @@ async def health_check():
 async def ask_question(question: str):
     try:
         return {"answer": get_answer_from_confluence(question)}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail="Asking failed. {e}")
+    except AnswerNotFoundError as error:
+        raise HTTPException(status_code=404, detail=f"{error}")
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127:0:0:1", port=8000)
