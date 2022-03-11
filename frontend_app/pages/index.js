@@ -5,7 +5,7 @@ import PropagateLoader from "react-spinners/PropagateLoader";
 
 export default function Home() {
   const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState();
+  const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
   const [color, setColor] = useState("#c6e9fe");
   const style = { position: "fixed", top: "58%", left: "49%"};
@@ -22,6 +22,9 @@ export default function Home() {
     })
     .then(function(response) {
       if (response.status !== 200) {
+        setAnswer("Unable to find answer...")
+        setQuestion("");
+        setLoading(false)
         console.log(`Looks like there was a problem. Status code: ${response.status}`);
         return;
       }
@@ -58,7 +61,7 @@ export default function Home() {
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
           />
-          <div className="bounce-loading" style={style}>
+          <div className="spinner" style={style}>
             <PropagateLoader color={color} loading={loading} size={20} />
           </div>
           <input type="submit" value="Get answer"
